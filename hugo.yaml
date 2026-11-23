@@ -1,0 +1,44 @@
+baseURL: "https://<chixian1616>.github.io/"
+languageCode: "zh-tw"
+title: "沈豈賢 | Portfolio"
+theme: "blowfish"
+
+# 啟用 Hugo 的圖片處理資源管道
+enableRobotsTXT: true
+paginate: 6
+
+params:
+  colorScheme: "ocean"      # 主題配色（可選 blowfish, avocado, fire, ocean 等）
+  defaultAppearance: "dark"     # 預設深色模式
+  autoSwitchAppearance: true
+  enableSearch: true
+
+  header:
+    layout: "fixed"
+
+  homepage:
+    layout: "profile"           # 首頁採用 Profile 個人形象卡片樣式
+    showRecent: false            # 下方同時顯示最近的專案或文章
+    showRecentItems: 3
+
+  author:
+    name: "沈豈賢"
+    image: "avatar.jpg"         # 對應 assets/avatar.jpg
+    headline: "電機工程學士生 / 機械手臂與電腦視覺開發者 / 嵌入式系統與邊緣 AI"
+    bio: "邊緣 AI、機器人手臂控制與感測系統開發。"
+    links:
+      - email: "mailto:your-email@gmail.com"
+      - github: "https://github.com/<chixian1616>" # 沒有可刪除或保留註記
+      - linkedin: "https://linkedin.com/in/<你的帳號>" # 沒有可刪除或保留註記
+
+menu:
+  main:
+    - name: "專案作品"
+      pageRef: "projects"
+      weight: 10
+    - name: "文章"
+      pageRef: "posts"
+      weight: 20
+    - name: "關於我"
+      pageRef: "about"
+      weight: 30

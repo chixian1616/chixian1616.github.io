@@ -1,0 +1,115 @@
+<div class="terminal-container">
+  <div class="terminal-content">
+    <!-- 這裡的內容會由下方的腳本自動逐字打出 -->
+    <div id="terminal-lines-container"></div>
+    
+    <!-- 當打字完成後，才會顯示下方的游標與時間 -->
+    <div class="terminal-footer" id="terminal-footer" style="display: none;">
+      <div class="terminal-prompt">
+        <span class="bracket-symbol">└─</span><span class="user-symbol">^</span> <span class="username">user</span> <span class="tilde">~</span> <span class="line-fill"></span>
+        <span class="terminal-time" id="terminal-clock">00:00:00</span>
+      </div>
+      <div class="terminal-input-row">
+        <span class="terminal-arrow">&gt;</span>
+        <span class="terminal-cursor"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 在此調整卡片與字體大小 */
+.terminal-container {
+  background-color: #2b2b2b;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin: 20px auto;
+  max-width: 100%; /* ⬅️ 調整這裡改變卡片最大寬度 */
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  border: 1px solid #3d3d3d;
+  color: #ececec;
+  text-align: left;
+}
+
+.terminal-line {
+  font-size: 1.05rem; /* ⬅️ 調整這裡改變文字大小 */
+  line-height: 2;
+  display: flex;
+  align-items: center;
+}
+
+.terminal-arrow { color: #22c55e; font-weight: bold; margin-right: 12px; user-select: none; }
+.terminal-footer { margin-top: 20px; }
+.terminal-prompt { display: flex; align-items: center; color: #a3a3a3; font-size: 0.95rem; overflow: hidden; }
+.bracket-symbol { color: #a3a3a3; margin-right: 4px; }
+.user-symbol { color: #ffffff; margin-right: 4px; }
+.username { color: #ffffff; font-weight: bold; }
+.tilde { color: #38bdf8; margin: 0 8px; }
+.line-fill { flex-grow: 1; height: 1px; background-color: #525252; margin: 0 10px; }
+.terminal-time { color: #d4d4d4; font-size: 0.9rem; letter-spacing: 1px; }
+.terminal-input-row { display: flex; align-items: center; margin-top: 4px; }
+.terminal-cursor {
+  display: inline-block; width: 10px; height: 18px;
+  background-color: #ffffff; margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+</style>
+
+<script>
+(function() {
+  // ⬅️ 調整這裡：你要顯示的句子內容
+  const lines = [
+    "大家好，我是 xianxian賢賢",
+    "電機工程學士生 / 邊緣運算與機器人開發",
+    "專注於 YOLO 電腦視覺與機械手臂自主夾取",
+    "享受實體機電整合與開源硬體實作"
+  ];
+  
+  const container = document.getElementById("terminal-lines-container");
+  const footer = document.getElementById("terminal-footer");
+  let lineIndex = 0;
+  let charIndex = 0;
+
+  function typeLine() {
+    if (lineIndex < lines.length) {
+      if (charIndex === 0) {
+        const lineDiv = document.createElement("div");
+        lineDiv.className = "terminal-line";
+        lineDiv.innerHTML = '<span class="terminal-arrow">&gt;</span> <span class="typing-text"></span>';
+        container.appendChild(lineDiv);
+      }
+      const currentText = lines[lineIndex];
+      const textSpan = container.lastChild.querySelector('.typing-text');
+      
+      if (charIndex < currentText.length) {
+        textSpan.textContent += currentText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 60); // ⬅️ 調整這裡：每個字的打字速度 (毫秒)
+      } else {
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeLine, 400); // ⬅️ 調整這裡：換行的停頓時間 (毫秒)
+      }
+    } else {
+      footer.style.display = "block"; // 打字結束後顯示閃爍游標
+    }
+  }
+
+  // 時鐘更新邏輯
+  function updateClock() {
+    const clock = document.getElementById('terminal-clock');
+    if (!clock) return;
+    const now = new Date();
+    clock.innerText = String(now.getHours()).padStart(2, '0') + ':' + 
+                      String(now.getMinutes()).padStart(2, '0') + ':' + 
+                      String(now.getSeconds()).padStart(2, '0');
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+  
+  // 啟動打字動畫
+  setTimeout(typeLine, 500);
+})();
+</script>
