@@ -27,9 +27,9 @@ params:
     headline: "電機工程學士生 / 機械手臂與電腦視覺開發者 / 嵌入式系統與邊緣 AI"
     bio: "邊緣 AI、機器人手臂控制與感測系統開發。"
     links:
-      - email: "mailto:your-email@gmail.com"
-      - github: "https://github.com/<chixian1616>" # 沒有可刪除或保留註記
-      - linkedin: "https://linkedin.com/in/<你的帳號>" # 沒有可刪除或保留註記
+      - email: "mailto:chixian.youngboy@gmail.com"
+      - github: "https://github.com/chixian1616" # 沒有可刪除或保留註記
+      - instagram: "https://www.instagram.com/xian.0811/"
 
 menu:
   main:
@@ -42,3 +42,9 @@ menu:
     - name: "關於我"
       pageRef: "about"
       weight: 30
+
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
